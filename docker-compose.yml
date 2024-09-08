@@ -1,21 +1,34 @@
 services:
+  mysql:
+    image: mysql:5.7
+    platform: linux/x86_64/v8
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "ssmgr"
+    ports:
+      - 3306:3306
   ssr:
     image: ghcr.io/shadowsocks/ssserver-rust:latest
     ports:
       - "8388:8388/tcp"
       - "8388:8388/udp"
-    restart: always
+    restart: unless-stopped
     volumes:
       - './config.json:/etc/shadowsocks-rust/config.json'
+  ssmgr:
+    build:
+      context: ./ssmgr
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - ssr
+      - mysql
   webgui:
     build:
       context: ./webgui
       dockerfile: Dockerfile
-    ports:
-      - "6001:6001/tcp"
-      - "6001:6001/udp"
-      - "80:80/tcp"
-      - "80:80/udp"
-    restart: always
-    volumes:
-      - './webgui/config.yml:/home/config.yml'
+    restart: unless-stopped
+    depends_on:
+      - ssmgr

@@ -1,0 +1,13 @@
+type: s
+
+shadowsocks:
+  address: ssr:5300
+manager:
+  address: 127.0.0.1:4001
+  password: '123456'
+
+db:
+  host: 'mysql'
+  user: 'root'
+  password: '123456'
+  database: 'ssmgr'
