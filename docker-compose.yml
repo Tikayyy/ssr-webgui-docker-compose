@@ -1,0 +1,21 @@
+services:
+  ssr:
+    image: ghcr.io/shadowsocks/ssserver-rust:latest
+    ports:
+      - "8388:8388/tcp"
+      - "8388:8388/udp"
+    restart: always
+    volumes:
+      - './config.json:/etc/shadowsocks-rust/config.json'
+  webgui:
+    build:
+      context: ./webgui
+      dockerfile: Dockerfile
+    ports:
+      - "6001:6001/tcp"
+      - "6001:6001/udp"
+      - "80:80/tcp"
+      - "80:80/udp"
+    restart: always
+    volumes:
+      - './webgui/config.yml:/home/config.yml'

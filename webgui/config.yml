@@ -1,0 +1,24 @@
+type: m
+
+manager:
+  address: ssr:5300
+  password: '123456'
+
+plugins:
+  flowSaver:
+    use: true
+  user:
+    use: true
+  account:
+    use: true
+  macAccount:
+    use: true
+  group:
+    use: true
+  webgui:
+    use: true
+    host: '0.0.0.0'
+    port: '80'
+    site: 'http://185.103.155.195'
+
+db: 'webgui.sqlite'
