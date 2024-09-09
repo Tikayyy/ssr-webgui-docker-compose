@@ -12,4 +12,5 @@ RUN apt-get update && \
     dpkg-reconfigure -f noninteractive tzdata
 
 COPY ./config.yml /home/config.yml
-CMD ["/usr/bin/ssmgr", "-c", "/home/config.yml"]
+# CMD ["/usr/bin/ssmgr", "-c", "/home/config.yml"]
+CMD sleep 15 && /usr/bin/ssmgr -c /home/config.yml

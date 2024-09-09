@@ -12,6 +12,7 @@ RUN apt-get update && \
     dpkg-reconfigure -f noninteractive tzdata
 
 COPY ./config.yml /home/config.yml
-COPY ./entrypoint.sh /home/entrypoint.sh
-RUN chmod +x /home/entrypoint.sh
-CMD ["/home/entrypoint.sh"]
+# COPY ./entrypoint.sh /home/entrypoint.sh
+# RUN chmod +x /home/entrypoint.sh
+# CMD ["/home/entrypoint.sh"]
+CMD sleep 15 && /usr/bin/ssmgr -c /home/config.yml

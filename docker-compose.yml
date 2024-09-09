@@ -9,6 +9,13 @@ services:
       MYSQL_DATABASE: "ssmgr"
     ports:
       - 3306:3306
+
+  redis:
+    image: redis:5.0-alpine
+    restart: unless-stopped
+    volumes:
+      - './redis:/data'
+
   ssr:
     image: ghcr.io/shadowsocks/ssserver-rust:latest
     ports:
@@ -17,6 +24,7 @@ services:
     restart: unless-stopped
     volumes:
       - './config.json:/etc/shadowsocks-rust/config.json'
+
   ssmgr:
     build:
       context: ./ssmgr
@@ -24,7 +32,9 @@ services:
     restart: unless-stopped
     depends_on:
       - ssr
+      - redis
       - mysql
+
   webgui:
     build:
       context: ./webgui

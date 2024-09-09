@@ -3,7 +3,7 @@ type: s
 shadowsocks:
   address: ssr:5300
 manager:
-  address: 127.0.0.1:4001
+  address: 0.0.0.0:4001
   password: '123456'
 
 db:
